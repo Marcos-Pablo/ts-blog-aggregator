@@ -15,7 +15,7 @@ export function setUser(currentUserName: string) {
 
 export function readConfig(): Config {
   const filePath = getConfigFilePath();
-  const data = fs.readFileSync(filePath, 'utf-8');
+  const data = fs.readFileSync(filePath, { encoding: 'utf-8' });
   const rawConfig = JSON.parse(data);
   return validateConfig(rawConfig);
 }
