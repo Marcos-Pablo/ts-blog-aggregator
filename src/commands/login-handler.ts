@@ -1,11 +1,16 @@
+import { getUserByName } from 'src/db/queries/users';
 import { setUser } from '../config';
 
-export function handlerLogin(cmdName: string, ...args: string[]) {
+export async function handleLogin(cmdName: string, ...args: string[]) {
   if (args.length !== 1) {
     throw new Error(`usage: ${cmdName} <name>`);
   }
 
-  const userName = args[0];
-  setUser(userName);
+  const name = args[0];
+  const user = await getUserByName(name);
+  if (!user) {
+    throw new Error(`User ${name} not found`);
+  }
+  setUser(name);
   console.log('User switched successfully!');
 }
