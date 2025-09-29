@@ -3,12 +3,14 @@ import { argv } from 'node:process';
 import { handleRegister } from './commands/register-handler';
 import { handleLogin } from './commands/login-handler';
 import { handleReset } from './commands/reset-handler';
+import { handleGetUsers } from './commands/list-users';
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
   registerCommand(commandsRegistry, 'login', handleLogin);
   registerCommand(commandsRegistry, 'register', handleRegister);
   registerCommand(commandsRegistry, 'reset', handleReset);
+  registerCommand(commandsRegistry, 'users', handleGetUsers);
 
   const input = argv.slice(2);
   if (input.length === 0) {
