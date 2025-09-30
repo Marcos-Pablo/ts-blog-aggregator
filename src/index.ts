@@ -2,7 +2,7 @@ import { CommandsRegistry, registerCommand, runCommand } from './commands/comman
 import { argv } from 'node:process';
 import { handleReset } from './commands/reset-handler';
 import { handleGetUsers, handleLogin, handleRegister } from './commands/users';
-import { handleAddFeed, handleAggregate } from './commands/feeds';
+import { handleAddFeed, handleAggregate, handleGetFeeds } from './commands/feeds';
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
@@ -12,6 +12,7 @@ async function main() {
   registerCommand(commandsRegistry, 'users', handleGetUsers);
   registerCommand(commandsRegistry, 'agg', handleAggregate);
   registerCommand(commandsRegistry, 'addfeed', handleAddFeed);
+  registerCommand(commandsRegistry, 'feeds', handleGetFeeds);
 
   const input = argv.slice(2);
   if (input.length === 0) {
