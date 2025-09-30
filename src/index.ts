@@ -1,11 +1,8 @@
 import { CommandsRegistry, registerCommand, runCommand } from './commands/commands';
 import { argv } from 'node:process';
-import { handleRegister } from './commands/register-handler';
-import { handleLogin } from './commands/login-handler';
 import { handleReset } from './commands/reset-handler';
-import { handleGetUsers } from './commands/get-users-handler';
-import { handleAggregate } from './commands/aggregator-handler';
-import { handleAddFeed } from './commands/add-feed-handler';
+import { handleGetUsers, handleLogin, handleRegister } from './commands/users';
+import { handleAddFeed, handleAggregate } from './commands/feeds';
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};

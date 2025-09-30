@@ -2,6 +2,13 @@ import { readConfig } from 'src/config';
 import { addFeed } from 'src/lib/db/queries/feeds';
 import { getUserByName } from 'src/lib/db/queries/users';
 import { Feed, User } from 'src/lib/db/schema';
+import { fetchFeed } from 'src/lib/rss';
+
+export async function handleAggregate(_: string) {
+  const feedUrl = 'https://www.wagslane.dev/index.xml';
+  const feedData = await fetchFeed(feedUrl);
+  console.log(JSON.stringify(feedData, null, 2));
+}
 
 export async function handleAddFeed(cmdName: string, ...args: string[]) {
   const feedName = args[0];
