@@ -5,6 +5,7 @@ import { handleLogin } from './commands/login-handler';
 import { handleReset } from './commands/reset-handler';
 import { handleGetUsers } from './commands/get-users-handler';
 import { handleAggregate } from './commands/aggregator-handler';
+import { handleAddFeed } from './commands/add-feed-handler';
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
@@ -13,6 +14,7 @@ async function main() {
   registerCommand(commandsRegistry, 'reset', handleReset);
   registerCommand(commandsRegistry, 'users', handleGetUsers);
   registerCommand(commandsRegistry, 'agg', handleAggregate);
+  registerCommand(commandsRegistry, 'addfeed', handleAddFeed);
 
   const input = argv.slice(2);
   if (input.length === 0) {
