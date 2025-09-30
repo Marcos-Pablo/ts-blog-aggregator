@@ -1,5 +1,5 @@
 import { readConfig } from 'src/config';
-import { getUsers } from 'src/db/queries/users';
+import { getUsers } from 'src/lib/db/queries/users';
 
 export async function handleGetUsers(_: string) {
   const users = await getUsers();

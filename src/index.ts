@@ -3,7 +3,8 @@ import { argv } from 'node:process';
 import { handleRegister } from './commands/register-handler';
 import { handleLogin } from './commands/login-handler';
 import { handleReset } from './commands/reset-handler';
-import { handleGetUsers } from './commands/list-users';
+import { handleGetUsers } from './commands/get-users-handler';
+import { handleAggregate } from './commands/aggregator-handler';
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
@@ -11,6 +12,7 @@ async function main() {
   registerCommand(commandsRegistry, 'register', handleRegister);
   registerCommand(commandsRegistry, 'reset', handleReset);
   registerCommand(commandsRegistry, 'users', handleGetUsers);
+  registerCommand(commandsRegistry, 'agg', handleAggregate);
 
   const input = argv.slice(2);
   if (input.length === 0) {

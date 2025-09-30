@@ -1,4 +1,4 @@
-import { deleteUsers } from 'src/db/queries/users';
+import { deleteUsers } from 'src/lib/db/queries/users';
 
 export async function handleReset(_: string) {
   await deleteUsers();

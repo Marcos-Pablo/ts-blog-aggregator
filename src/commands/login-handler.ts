@@ -1,4 +1,4 @@
-import { getUserByName } from 'src/db/queries/users';
+import { getUserByName } from 'src/lib/db/queries/users';
 import { setUser } from '../config';
 
 export async function handleLogin(cmdName: string, ...args: string[]) {
