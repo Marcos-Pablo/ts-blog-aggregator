@@ -1,8 +1,10 @@
 import { readConfig } from 'src/config';
+import { createFeedFollow } from 'src/lib/db/queries/feed-follows';
 import { addFeed, getFeeds } from 'src/lib/db/queries/feeds';
 import { getUserByName } from 'src/lib/db/queries/users';
 import { Feed, User } from 'src/lib/db/schema';
 import { fetchFeed } from 'src/lib/rss';
+import { printFeedFollow } from './feed-follows';
 
 export async function handleAggregate(_: string) {
   const feedUrl = 'https://www.wagslane.dev/index.xml';
@@ -45,8 +47,10 @@ export async function handleAddFeed(cmdName: string, ...args: string[]) {
     throw new Error('Failed to create feed');
   }
 
+  const feedFollow = await createFeedFollow(feed.id, user.id);
   console.log('Feed created successfully:');
   printFeed(feed, user);
+  printFeedFollow(feedFollow.userName, feedFollow.feedName);
 }
 
 function printFeed(feed: Feed, user: User) {

@@ -1,8 +1,9 @@
 import { CommandsRegistry, registerCommand, runCommand } from './commands/commands';
 import { argv } from 'node:process';
-import { handleReset } from './commands/reset-handler';
+import { handleReset } from './commands/reset';
 import { handleGetUsers, handleLogin, handleRegister } from './commands/users';
 import { handleAddFeed, handleAggregate, handleGetFeeds } from './commands/feeds';
+import { handleFollow, handleListFeedFollows } from './commands/feed-follows';
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
@@ -13,6 +14,8 @@ async function main() {
   registerCommand(commandsRegistry, 'agg', handleAggregate);
   registerCommand(commandsRegistry, 'addfeed', handleAddFeed);
   registerCommand(commandsRegistry, 'feeds', handleGetFeeds);
+  registerCommand(commandsRegistry, 'follow', handleFollow);
+  registerCommand(commandsRegistry, 'following', handleListFeedFollows);
 
   const input = argv.slice(2);
   if (input.length === 0) {
