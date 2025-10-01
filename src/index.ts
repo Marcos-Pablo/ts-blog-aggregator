@@ -2,9 +2,10 @@ import { CommandsRegistry, registerCommand, runCommand } from './commands/comman
 import { argv } from 'node:process';
 import { handleReset } from './commands/reset';
 import { handleGetUsers, handleLogin, handleRegister } from './commands/users';
-import { handleAddFeed, handleAggregate, handleGetFeeds } from './commands/feeds';
+import { handleAddFeed, handleGetFeeds } from './commands/feeds';
 import { handleFollow, handleListFeedFollows, handleUnfollow } from './commands/feed-follows';
 import { middlewareLoggedIn } from './lib/middlewares/logged-in';
+import { handleAggregate } from './commands/aggregate';
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};

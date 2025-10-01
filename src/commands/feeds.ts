@@ -1,14 +1,7 @@
 import { createFeedFollow } from 'src/lib/db/queries/feed-follows';
 import { addFeed, getFeeds } from 'src/lib/db/queries/feeds';
 import { Feed, User } from 'src/lib/db/schema';
-import { fetchFeed } from 'src/lib/rss';
 import { printFeedFollow } from './feed-follows';
-
-export async function handleAggregate(_: string) {
-  const feedUrl = 'https://www.wagslane.dev/index.xml';
-  const feedData = await fetchFeed(feedUrl);
-  console.log(JSON.stringify(feedData, null, 2));
-}
 
 export async function handleGetFeeds(_: string) {
   const result = await getFeeds();
