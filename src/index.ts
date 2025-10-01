@@ -4,6 +4,7 @@ import { handleReset } from './commands/reset';
 import { handleGetUsers, handleLogin, handleRegister } from './commands/users';
 import { handleAddFeed, handleAggregate, handleGetFeeds } from './commands/feeds';
 import { handleFollow, handleListFeedFollows } from './commands/feed-follows';
+import { middlewareLoggedIn } from './lib/middlewares/logged-in';
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
@@ -12,10 +13,10 @@ async function main() {
   registerCommand(commandsRegistry, 'reset', handleReset);
   registerCommand(commandsRegistry, 'users', handleGetUsers);
   registerCommand(commandsRegistry, 'agg', handleAggregate);
-  registerCommand(commandsRegistry, 'addfeed', handleAddFeed);
+  registerCommand(commandsRegistry, 'addfeed', middlewareLoggedIn(handleAddFeed));
   registerCommand(commandsRegistry, 'feeds', handleGetFeeds);
-  registerCommand(commandsRegistry, 'follow', handleFollow);
-  registerCommand(commandsRegistry, 'following', handleListFeedFollows);
+  registerCommand(commandsRegistry, 'follow', middlewareLoggedIn(handleFollow));
+  registerCommand(commandsRegistry, 'following', middlewareLoggedIn(handleListFeedFollows));
 
   const input = argv.slice(2);
   if (input.length === 0) {
