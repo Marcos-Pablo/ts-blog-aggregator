@@ -3,7 +3,7 @@ import { argv } from 'node:process';
 import { handleReset } from './commands/reset';
 import { handleGetUsers, handleLogin, handleRegister } from './commands/users';
 import { handleAddFeed, handleAggregate, handleGetFeeds } from './commands/feeds';
-import { handleFollow, handleListFeedFollows } from './commands/feed-follows';
+import { handleFollow, handleListFeedFollows, handleUnfollow } from './commands/feed-follows';
 import { middlewareLoggedIn } from './lib/middlewares/logged-in';
 
 async function main() {
@@ -16,6 +16,7 @@ async function main() {
   registerCommand(commandsRegistry, 'addfeed', middlewareLoggedIn(handleAddFeed));
   registerCommand(commandsRegistry, 'feeds', handleGetFeeds);
   registerCommand(commandsRegistry, 'follow', middlewareLoggedIn(handleFollow));
+  registerCommand(commandsRegistry, 'unfollow', middlewareLoggedIn(handleUnfollow));
   registerCommand(commandsRegistry, 'following', middlewareLoggedIn(handleListFeedFollows));
 
   const input = argv.slice(2);
