@@ -1,4 +1,6 @@
 import { getNextFeedToFetch, markFeedFetched } from 'src/lib/db/queries/feeds';
+import { bulkCreatePosts } from 'src/lib/db/queries/posts';
+import { NewPost } from 'src/lib/db/schema';
 import { fetchFeed } from 'src/lib/rss';
 import { parseDuration } from 'src/lib/utils';
 
@@ -36,7 +38,28 @@ export async function scrapeFeeds() {
   console.log('Found a feed to fetch!');
   await markFeedFetched(feed.id);
   const feedData = await fetchFeed(feed.url);
+
   console.log(`Feed ${feed.name} collected, ${feedData.channel.item.length} posts found`);
+  if (feedData.channel.item.length === 0) {
+    return;
+  }
+
+  const bulkInsert = feedData.channel.item.map(
+    (postData) =>
+      ({
+        title: postData.title,
+        url: postData.link,
+        description: postData.description,
+        publishedAt: new Date(postData.pubDate),
+        feedId: feed.id,
+      }) satisfies NewPost,
+  );
+
+  const result = await bulkCreatePosts(bulkInsert);
+
+  if (!result) {
+    console.log(`Failed to save posts from feed ${feed.name}`);
+  }
 }
 
 function handleError(err: unknown) {

@@ -6,6 +6,7 @@ import { handleAddFeed, handleGetFeeds } from './commands/feeds';
 import { handleFollow, handleListFeedFollows, handleUnfollow } from './commands/feed-follows';
 import { middlewareLoggedIn } from './lib/middlewares/logged-in';
 import { handleAggregate } from './commands/aggregate';
+import { handleBrowse } from './commands/posts';
 
 async function main() {
   const commandsRegistry: CommandsRegistry = {};
@@ -19,6 +20,7 @@ async function main() {
   registerCommand(commandsRegistry, 'follow', middlewareLoggedIn(handleFollow));
   registerCommand(commandsRegistry, 'unfollow', middlewareLoggedIn(handleUnfollow));
   registerCommand(commandsRegistry, 'following', middlewareLoggedIn(handleListFeedFollows));
+  registerCommand(commandsRegistry, 'browse', middlewareLoggedIn(handleBrowse));
 
   const input = argv.slice(2);
   if (input.length === 0) {
